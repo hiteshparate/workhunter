@@ -1,0 +1,53 @@
+<br>
+<!-- <script src="../node_modules/sweetalert2/dist/sweetalert2.all.js"></script> -->
+<div class="master-page-1">
+  <table class="table table-responsive-md">
+    <thead>
+
+      <tr class="d-md-table-row">
+        <th class="header-top">number</th>
+        <th class="header-top">Job title</th>
+        <th class="header-top">Category</th>
+        <th class="header-top">price</th>
+        <th class="header-top">Posted date</th>
+        <th class="header-top">Users</th>
+        <th class="header-top">Select User</th>
+        <th class="header-top">Complete Poject</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+      <tr class="d-md-table-row" *ngFor="let u of user; index as i">
+        <td class="d-md-table-cell">{{i+1}}</td>
+        <td class="d-md-table-cell">{{u.title}}</td>
+        <td class="d-md-table-cell">{{u.category}}</td>
+        <td class="d-md-table-cell">{{u.price | currency:'INR'}}</td>
+        <td class="d-md-table-cell">{{u.posteddate | date}}</td>
+        <td class="d-md-table-cell"><button class="btn btn-primary"
+            (click)="showUserData(u.username)">{{u.username}}</button></td>
+
+        <td class="d-md-table-cell">
+          <button *ngIf="u.status=='applied'" class="btn btn-primary" (click)="SelectUser(u.user_id, u.job_id)">
+            Choose
+          </button>
+          <div *ngIf="u.status=='selected'">Selected</div>
+          <div *ngIf="u.status=='completed'">Completed</div>
+        </td>
+
+        <td class="d-md-table-cell">
+          <button *ngIf="u.status=='selected'" class="btn btn-success" (click)="rateUser(u.user_id , u.job_id)">
+            Project Complete
+          </button>
+          <div *ngIf="u.status == 'completed'">
+            Completed
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

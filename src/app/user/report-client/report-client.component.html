@@ -1,0 +1,52 @@
+<div class="container">
+  <br>
+  <table datatable class="table table-responsive-md">
+    <thead>
+      
+    <tr class="d-md-table-row">
+      <th class="header-top">number</th>
+      <th class="header-top">Username</th>
+      <th class="header-top">Email</th>
+      <th class="header-top">Name</th>
+      <th class="header-top">Address</th>
+      <th class="header-top">Country</th>
+      <th class="header-top">Report</th>
+      <th class="header-top">Rating</th>
+      
+    </tr>
+    
+  </thead>
+  
+  <tbody>
+    <tr class="d-md-table-row" *ngFor="let c of clients; index as i">
+      <td class="d-md-table-cell">{{i+1}}</td>
+      <td class="d-md-table-cell">{{c.username}}</td>
+      <td class="d-md-table-cell">{{c.email}}</td>
+      <td class="d-md-table-cell">{{c.fname}} {{c.mname}} {{c.lname}}</td>
+      <td class="d-md-table-cell">{{c.address}}</td>
+      <td class="d-md-table-cell">{{c.country}}</td>
+      <td class="d-md-table-cell">
+        <div *ngIf="showReportButton(c.id)">
+          <button class="btn btn-danger" (click)="ReportClient(c.id)">Report</button>
+
+        </div>
+        <div *ngIf="!showReportButton(c.id)">
+          Reported
+        </div>
+
+      </td>
+      <td class="d-md-table-cell">
+        <rating [ngModel]="ShowRatingButton(c.id)" #rat [readonly]="ShowRatingButton(c.id)>0"></rating>
+        <div *ngIf="showRateButton(c.id)">
+          <button class="btn btn-info" (click)="ratingToClient(rat, c.id)">Rate</button>
+
+        </div>
+      </td>
+
+      
+      
+    </tr>
+  </tbody>
+</table>
+
+</div>

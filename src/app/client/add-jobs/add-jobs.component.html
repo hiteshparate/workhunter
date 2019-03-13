@@ -1,0 +1,113 @@
+<div class="panel">
+  <div class="panel-heading col-md-4 col-md-offset-4">
+    <h2>Form for adding Work</h2>
+  </div>
+
+  <div class="panel-body">
+
+    <form class="form-horizontal" #jobForm="ngForm">
+
+      <div class="col-md-8 col-md-offset-2">
+        <div class="form-group has-feedback" [ngClass]="{'has-error': jtitle.invalid && jtitle.touched}">
+          <label for="jobtitle">
+            Job title
+          </label>
+          <input type="text" class="form-control" [ngClass]="{'is-invalid' : jtitle.invalid  && jtitle.touched}"
+            required placeholder="jobtitle" name="jobtitle" #jtitle="ngModel" [(ngModel)]="job.title">
+          <span
+            [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':jtitle.invalid==true && jtitle.touched==true,'hide':jtitle.valid==true}"></span>
+
+          <span
+            [ngClass]="{'hide':jtitle.invalid==true && jtitle.touched==true,'glyphicon glyphicon-ok form-control-feedback':jtitle.valid==true}"></span>
+          <div *ngIf="jtitle.errors && (jtitle.invalid && jtitle.touched)">
+            <small class="text-danger" *ngIf="jtitle.errors.required"> title is Required</small>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-8 col-md-offset-2">
+        <div class="form-group has-feedback" [ngClass]="{'has-error': jdesc.invalid && jdesc.touched}">
+          <label for="jobdesc">
+            Job description
+          </label>
+          <textarea rows="5" class="form-control" required [ngClass]="{'is-invalid' : jdesc.invalid  && jdesc.touched}"
+            placeholder="Add Job description here" name="jobdesc" #jdesc="ngModel" [(ngModel)]="job.description"></textarea>
+          <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':jdesc.invalid==true && jdesc.touched==true,'hide':jdesc.valid==true}"></span>
+
+          <span [ngClass]="{'hide':jdesc.invalid==true && jdesc.touched==true,'glyphicon glyphicon-ok form-control-feedback':jdesc.valid==true}"></span>
+          <div *ngIf="jdesc.errors && (jdesc.invalid && jdesc.touched)">
+            <small class="text-danger" *ngIf="jdesc.errors.required"> Description  is Required</small>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8 col-md-offset-2">
+        <div class="form-group has-feedback" [ngClass]="{'has-error': jcat.invalid && jcat.touched}" >
+          <label for="jobcategory">
+            Job category
+          </label>
+          <input type="text" class="form-control" [ngClass]="{'is-invalid' : jcat.invalid  && jcat.touched}" required placeholder="jobcategory" name="jobcategory" #jcat="ngModel"
+            [(ngModel)]="job.category">
+            <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':jcat.invalid==true && jcat.touched==true,'hide':jcat.valid==true}"></span>
+
+          <span [ngClass]="{'hide':jcat.invalid==true && jcat.touched==true,'glyphicon glyphicon-ok form-control-feedback':jcat.valid==true}"></span>
+          <div *ngIf="jcat.errors && (jcat.invalid && jcat.touched)">
+            <small class="text-danger" *ngIf="jcat.errors.required"> Category is Required</small>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8 col-md-offset-2">
+        <div class="form-group has-feedback" [ngClass]="{'has-error': jprice.invalid && jprice.touched}">
+          <label for="jobprice">
+            Job Price in ₹
+          </label>
+          <input type="number" class="form-control" [ngClass]="{'is-invalid' : jprice.invalid  && jprice.touched}"
+           required placeholder="Price in Rupees" name="jobprice" #jprice="ngModel" [(ngModel)]="job.price">
+           <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':jprice.invalid==true && jprice.touched==true,'hide':jprice.valid==true}"></span>
+           
+           <span [ngClass]="{'hide':jprice.invalid==true && jprice.touched==true,'glyphicon glyphicon-ok form-control-feedback':jcat.valid==true}"></span>
+           <div *ngIf="jprice.errors && (jprice.invalid && jprice.touched)">
+             <small class="text-danger" *ngIf="jprice.errors.required"> Price is Required</small>
+             
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-8 col-md-offset-2">
+        <div class="form-group has-feedback" [ngClass]="{'has-error': jpostby.invalid && jpostby.touched}">
+          <label for="jobposter">
+            Job Posted by
+          </label>
+          <input type="text" class="form-control"  [ngClass]="{'is-invalid' : jpostby.invalid  && jpostby.touched}"
+          required placeholder="Company or a person name" name="jobposter" #jpostby="ngModel" [(ngModel)]="job.postedby">
+          <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':jpostby.invalid==true && jpostby.touched==true,'hide':jpostby.valid==true}"></span>
+           
+           <span [ngClass]="{'hide':jpostby.invalid==true && jpostby.touched==true,'glyphicon glyphicon-ok form-control-feedback':jpostby.valid==true}"></span>
+           <div *ngIf="jpostby.errors && (jpostby.invalid && jpostby.touched)">
+             <small class="text-danger" *ngIf="jpostby.errors.required"> Company or person name is Required</small>
+             
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-8 col-md-offset-2">
+        <div class="form-group">
+
+          <button type="submit" (click)="AddJob()" class="btn btn-primary form-control" [disabled]="jobForm.form.invalid">
+           Submit </button>
+          </div>
+      </div>
+
+
+
+
+
+    </form>
+
+  </div>
+</div>
