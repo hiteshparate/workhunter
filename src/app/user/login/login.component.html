@@ -1,0 +1,194 @@
+<div *ngIf="btn_flag" class="btn-group btn-group-justified">
+  <div class="btn-group">
+
+    <button type="button" (click)="show_user()" class="btn btn-primary btn-lg">User</button>
+  </div>
+  <div class="btn-group">
+
+    <button type="button" (click)="show_client()" class="btn btn-primary btn-lg btn-light">Client</button>
+  </div>
+
+</div>
+
+
+<div *ngIf="user_flag==true" class="container ">
+  <div class="panel-heading">
+    <div class="row pull-right">
+      <button class="btn btn-secondary" (click)=reset()>Back</button>
+    </div>
+    <h1 class="row ">Login form for User</h1>
+  </div>
+  <div class="panel-body">
+
+    <form class="form-horizontal" #myForm="ngForm" *ngIf="!fpu">
+      <div class=" form-group has-feedback " [ngClass]="{'has-error':username.invalid && username.touched}">
+        <label class="control-label" for="username">username</label>
+       
+          <input class="form-control" [ngClass]="{'is-invalid' : username.invalid  && username.touched}"
+            #username="ngModel" required minlength="5" type="text" pattern="^(?=.*[A-Z])(?=.*[a-z])[A-Za-z\d]{5,20}$"
+            placeholder="Enter username" name="username" [(ngModel)]="user.username" />
+          <span
+            [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':username.invalid==true && username.touched==true,'hide':username.valid==true}"></span>
+
+          <span
+            [ngClass]="{'hide':username.invalid==true && username.touched==true,'glyphicon glyphicon-ok form-control-feedback':username.valid==true}"></span>
+
+        </div>
+        <div>
+        <div *ngIf="username.errors && (username.invalid && username.touched)">
+          <small class="text-danger" *ngIf="username.errors.required">Username is Required</small>
+          <small class="text-danger" *ngIf="username.errors.minlength">Username must be atleast 5 charactes
+            long.</small>
+          <small class="text-danger" *ngIf="username.errors.pattern">Username should include 1 uppercase and 1
+            lowercase
+            letter and No special characters</small>
+        </div>
+      </div>
+
+      <div class=" form-group has-feedback " [ngClass]="{'has-error':password.invalid && password.touched}">
+        <label for="password">password</label>
+        <input class="form-control" [ngClass]="{'is-invalid' : password.invalid && password.touched}"
+          #password="ngModel" required minlength="5" type="password"
+          pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{5,}$" placeholder="Enter password" name="password"
+          [(ngModel)]="user.password" />
+        <span
+          [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':password.invalid==true && password.touched==true,'hide':password.valid==true}"></span>
+
+        <span
+          [ngClass]="{'hide':password.invalid==true && password.touched==true,'glyphicon glyphicon-ok form-control-feedback':password.valid==true}"></span>
+        <div *ngIf="password.errors && (password.invalid && password.touched)">
+          <small class="text-danger" *ngIf="password.errors.required">Password is Required</small>
+          <small class="text-danger" *ngIf="password.errors.minlength">Password must be atleast 5 charactes
+            long.</small>
+          <small class="text-danger" *ngIf="password.errors.pattern">Password should include 1 uppercase , 1
+            lowercase ,1 number and 1 special characters
+            letter</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <a (click)="showForgotPasswordforUser()">Forgot Password?</a>
+      </div>
+
+      <button class="btn btn-primary btn-block" type="submit" (click)="Login()"
+        [disabled]="myForm.form.invalid">Login</button>
+
+    </form>
+
+    <!-- forgot password Starts here -->
+    <div class="container" *ngIf="fpu">
+
+      <div class="form-group has-feedback " [ngClass]="{'has-error':email.invalid && email.touched}">
+        <input class="form-control " [ngClass]="{'is-invalid' : email.invalid && email.touched}" type="text"
+          placeholder="enter valid Email address" email #email="ngModel" [(ngModel)]="user_email" required />
+        <span
+          [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':email.invalid==true && email.touched==true,'hide':email.valid==true}"></span>
+
+        <span
+          [ngClass]="{'hide':email.invalid==true && email.touched==true,'glyphicon glyphicon-ok form-control-feedback':email.valid==true}"></span>
+
+        <div *ngIf="email.errors && (email.invalid && email.touched)">
+          <small class="text-danger" *ngIf="email.errors.required">Email is Required </small>
+          <small class="text-danger" *ngIf="!email.errors.valid">Please Enter Valid Email Address</small>
+
+        </div>
+      </div>
+      <div class="form-group  ">
+        <button class="btn btn-lg btn-primary" (click)="forgotPassword()"> Send mail</button>
+      </div>
+    </div>
+ 
+  </div>
+
+</div>
+
+<div *ngIf="client_flag==true" class="container">
+  <div class="panel-heading">
+    <div class="row pull-right">
+      <button class="btn btn-secondary" (click)=reset()>Back</button>
+    </div>
+    <h1 class="row ">Login form for Client</h1>
+  </div>
+  <div class="panel-body">
+
+    <form class="form-horizontal" #myForm="ngForm" *ngIf="!fpc">
+      <div class=" form-group has-feedback " [ngClass]="{'has-error':username.invalid && username.touched}">
+        <label for="username">username</label>
+        <input class="form-control" [ngClass]="{'is-invalid' : username.invalid  && username.touched}"
+          #username="ngModel" required minlength="5" type="text" pattern="^(?=.*[A-Z])(?=.*[a-z])[A-Za-z\d]{5,20}$"
+          placeholder="Enter username" name="username" [(ngModel)]="user.username" />
+
+        <span
+          [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':username.invalid==true && username.touched==true,'hide':username.valid==true}"></span>
+
+        <span
+          [ngClass]="{'hide':username.invalid==true && username.touched==true,'glyphicon glyphicon-ok form-control-feedback':username.valid==true}"></span>
+
+        <div *ngIf="username.errors && (username.invalid && username.touched)">
+          <small class="text-danger" *ngIf="username.errors.required">Username is Required</small>
+          <small class="text-danger" *ngIf="username.errors.minlength">Username must be atleast 5 charactes
+            long.</small>
+          <small class="text-danger" *ngIf="username.errors.pattern">Username should include 1 uppercase and 1
+            lowercase letter</small>
+        </div>
+      </div>
+
+      <div class=" form-group has-feedback " [ngClass]="{'has-error':password.invalid && password.touched}">
+        <label for="password">password</label>
+        <input class="form-control" [ngClass]="{'is-invalid' : password.invalid && password.touched}"
+          #password="ngModel" required minlength="5" type="password"
+          pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{5,}$" placeholder="Enter password" name="password"
+          [(ngModel)]="user.password" />
+        <span
+          [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':password.invalid==true && password.touched==true,'hide':password.valid==true}"></span>
+
+        <span
+          [ngClass]="{'hide':password.invalid==true && password.touched==true,'glyphicon glyphicon-ok form-control-feedback':password.valid==true}"></span>
+
+        <div *ngIf="password.errors && (password.invalid && password.touched)">
+          <small class="text-danger" *ngIf="password.errors.required">Password is Required</small>
+          <small class="text-danger" *ngIf="password.errors.minlength">Password must be atleast 5 charactes
+            long.</small>
+          <small class="text-danger" *ngIf="password.errors.pattern">Password should include 1 uppercase , 1
+            lowercase ,1 number and 1 special characters
+            letter</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <a (click)="showForgotPasswordforClient()">Forgot Password?</a>
+      </div>
+
+
+      <button class="btn btn-primary btn-block" type="submit" (click)="Login()"
+        [disabled]="myForm.form.invalid">Login</button>
+
+
+    </form>
+
+     <!-- forgot password Starts here for client-->
+     <div class="container" *ngIf="fpc">
+
+        <div class="form-group has-feedback " [ngClass]="{'has-error':email.invalid && email.touched}">
+          <input class="form-control " [ngClass]="{'is-invalid' : email.invalid && email.touched}" type="text"
+            placeholder="enter valid Email address" email #email="ngModel" [(ngModel)]="client_email" required />
+          <span
+            [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':email.invalid==true && email.touched==true,'hide':email.valid==true}"></span>
+  
+          <span
+            [ngClass]="{'hide':email.invalid==true && email.touched==true,'glyphicon glyphicon-ok form-control-feedback':email.valid==true}"></span>
+  
+          <div *ngIf="email.errors && (email.invalid && email.touched)">
+            <small class="text-danger" *ngIf="email.errors.required">Email is Required </small>
+            <small class="text-danger" *ngIf="!email.errors.valid">Please Enter Valid Email Address</small>
+  
+          </div>
+        </div>
+        <div class="form-group  ">
+          <button class="btn btn-lg btn-primary" (click)="forgotPassword()"> Send mail</button>
+        </div>
+      </div>
+
+  </div>
+
+</div>

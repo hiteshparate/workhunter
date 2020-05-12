@@ -1,0 +1,80 @@
+<br>
+<div class="container row">
+  <div class="col-md-4 form-group">
+
+    <input type="text" class="form-control " placeholder="Search job title" #title>
+  </div>
+  <div class="col-md-4 form-group">
+    <select class="form-control " (change)="sendCategory($event)">
+      <option>Select category</option>
+      <option *ngFor="let c of category" #category value="{{c.jcategory}}">{{c.category}}</option>
+    </select>
+
+  </div>
+
+  <div class="col-md-push-4">
+
+    <button class="btn btn-primary" (click)="searchedJobs(title.value,category.value)">Search</button>
+  </div>
+</div>
+<br>
+<div class="container-fluid">
+  <table class="table table-responsive-md">
+    <thead>
+
+      <tr class="d-md-table-row">
+        <th class="header-top">number</th>
+        <th class="header-top">Job title</th>
+        <th class="header-top">Job Description</th>
+        <th class="header-top">Category</th>
+        <th class="header-top">price</th>
+        <th class="header-top">Posted date</th>
+        <th class="header-top">Posted by</th>
+        <th class="header-top">Apply</th>
+        <th class="header-top">Rate Client</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+      <tr class="d-md-table-row" *ngFor="let j of jobs; index as i">
+        <td class="d-md-table-cell">{{i+1}}</td>
+        <td class="d-md-table-cell">{{j.title}}</td>
+        <td class="d-md-table-cell">{{j.description}}</td>
+        <td class="d-md-table-cell">{{j.category}}</td>
+        <td class="d-md-table-cell">{{j.price | currency:'INR'}}</td>
+        <td class="d-md-table-cell">{{j.posteddate | date:'shortDate'}}</td>
+        <td class="d-md-table-cell">{{j.postedby}}</td>
+
+        <td class="d-md-table-cell">
+          <button *ngIf="getJobStatus(j.id)==''" class="btn btn-primary" (click)="ApplyJob(j.id)">
+            Apply
+          </button>
+          <div *ngIf="getJobStatus(j.id)=='applied'">
+            Applied
+          </div>
+          <div *ngIf="getJobStatus(j.id)=='selected'">
+            Selected
+          </div>
+          <div *ngIf="getJobStatus(j.id)=='completed'">
+            Completed
+          </div>
+
+        </td>
+        <td class="d-md-table-cell" *ngIf="getJobStatus(j.id)=='completed'" >
+            <rating  [(ngModel)]="rating" [titles]="['Very Bad', 'Bad', 'Average', 'Good', 'Excellent']">
+              </rating>
+            <button class="btn btn-success" (click)="rateCLient(j.id )">
+                Rate
+            </button>
+    
+        </td>
+
+
+
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<br>

@@ -1,0 +1,156 @@
+<br>
+
+<div class="container-fluid">
+  <br>
+  <div class="row">
+
+    <div class="col-md-4 col-md-offset-4">
+        <img class="img-thumbnail" [src]="imgURL" height="200" *ngIf="imgURL">
+      <div class="form-group">
+        
+        <div class="input-group">
+          
+          <!-- button to trigger the file upload when submitted -->
+          <span class="input-group-btn">
+            
+            
+            <button type="button" class="btn btn-success" (click)="uploader.uploadAll()"
+            [disabled]="!uploader.getNotUploadedItems().length">Upload</button>
+            
+          </span>
+          <div class="form-control-file">
+            <input #file class="form-control" type="file" name="photo" ng2FileSelect [uploader]="uploader"
+            accept='image/*' (change)="preview(file.files)"/>
+            
+          </div>
+          
+        </div>
+          
+      </div>
+      
+    </div>
+  </div>
+  
+  <form class="form-horizontal" #ProfileForm = "ngForm">
+    
+    
+    <div class="form-group has-feedback " [ngClass]="{'has-error':email.invalid && email.touched}">
+        <label>Email</label>
+      <input class="form-control" [ngClass]="{'is-invalid' : email.invalid  && email.touched}" #email="ngModel" required
+        type="text" email placeholder="Enter email" name="email" [(ngModel)]="profile.email" />
+      <small [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':email.invalid && email.touched}"></small>
+      <small [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':email.valid}"></small>
+
+      <div *ngIf="username.errors && (email.invalid && email.touched)">
+
+        <small class="text-danger" *ngIf="email.errors.required">Email is Required</small>
+        <small class="text-danger" *ngIf="email.errors">Please enter Valid Email Address</small>
+      </div>
+    </div>
+
+
+    <div class=" form-group has-feedback " [ngClass]="{'has-error':username.invalid && username.touched}">
+      <label for="username">username</label>
+      <input class="form-control" readonly [ngClass]="{'is-invalid' : username.invalid  && username.touched}"
+        #username="ngModel" required minlength="5" type="text" pattern="^(?=.*[A-Z])(?=.*[a-z])[A-Za-z\d]{5,20}$"
+        placeholder="Enter username" name="username" [(ngModel)]="profile.username" />
+      <small
+        [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':username.invalid && username.touched}"></small>
+      <small [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':username.valid}"></small>
+
+      <div *ngIf="username.errors && (username.invalid && username.touched)">
+        <small class="text-danger" *ngIf="username.errors.required">Username is Required</small>
+        <small class="text-danger" *ngIf="username.errors.minlength">Username must be atleast 5 charactes long.</small>
+        <small class="text-danger" *ngIf="username.errors.pattern">Username should include 1 uppercase and 1
+          lowercase
+          letter</small>
+      </div>
+    </div>
+
+    <div class=" form-group has-feedback " [ngClass]="{'has-error':password.invalid && password.touched}">
+      <label for="password">password</label>
+      <input class="form-control" [ngClass]="{'is-invalid' : password.invalid && password.touched}" #password="ngModel"
+        required minlength="5" type="password" pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{5,}$"
+        placeholder="Enter password" name="password" [(ngModel)]="profile.password" />
+      <small
+        [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':password.invalid && password.touched}"></small>
+      <small [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':password.valid}"></small>
+
+      <div *ngIf="password.errors && (password.invalid && password.touched)">
+        <small class="text-danger" *ngIf="password.errors.required">Password is Required</small>
+        <small class="text-danger" *ngIf="password.errors.minlength">Password must be atleast 5 charactes long.</small>
+        <small class="text-danger" *ngIf="password.errors.pattern">Password should include 1 uppercase and 1
+          lowercase
+          letter , 1 number and 1 special character from ! and @</small>
+      </div>
+    </div>
+
+    <div class="form-group has-feedback" [ngClass]="{'has-error':cpassword.invalid && cpassword.touched}">
+      <label for="cpassword">Confirm Password</label>
+      <input class="form-control" type="password" [ngClass]="{'is-invalid':cpassword.invalid && cpassword.touched}"
+        #cpassword="ngModel" required [(ngModel)]="profile.cpassword" name="cpassword" pattern="{{profile.password}}"
+        placeholder="Enter Confirm Password">
+      <small
+        [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':cpassword.invalid && cpassword.touched}"></small>
+      <small [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':cpassword.valid}"></small>
+
+      <div *ngIf="cpassword.errors && (cpassword.invalid && cpassword.touched)">
+        <small *ngIf="(profile.password != cpassword.value) && cpassword.dirty">Passwords do not match.</small>
+        <small *ngIf="cpassword.errors.required">Confirm Password is required</small>
+      </div>
+    </div>
+
+
+    <div class="form-group col-md-4">
+      <label for="fname">first Name</label>
+      <input class="form-control" #fname="ngModel" [(ngModel)]="profile.fname" name ="fname">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="fname">Middle Name</label>
+
+      <input class="form-control" #mname="ngModel" [(ngModel)]="profile.mname" name ="mname">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="fname">Last Name</label>
+
+      <input class="form-control" #lname="ngModel" [(ngModel)]="profile.lname" name = "lname">
+    </div>
+
+    <div class="form-group ">
+      <div class="col-md-4">
+        <label>Gender</label>
+      </div>
+
+      <div class="col-md-4 radio">
+        <label><input type="radio" name="optradio">male</label>
+      </div>
+
+      <div class=" col-md-4 radio">
+        <label><input type="radio" name="optradio">female</label>
+      </div>
+
+    </div>
+    <div class="form-group has-feedback">
+      <label for="address">
+        Address
+      </label>
+      <textarea rows="5" class="form-control"    placeholder="Address" name="address" #address="ngModel" [(ngModel)]="profile.address"></textarea>
+
+    </div>
+    <div class="form-group">
+      <select class="form-control ">
+        <option>Select country</option>
+        <!-- <option *ngFor="let c of category" #category value="{{c.jcategory}}">{{c.jcategory}}</option> -->
+      </select>
+
+    </div>
+    <div class="form-group">
+      <!-- <button class="btn btn-danger col-md-4 col-md-offset-1">Edit</button> -->
+      <button class="btn btn-primary col-md-5 col-md-offset-3"
+       [disabled]="ProfileForm.form.invalid" (click)="SaveProfileData()">Save</button>
+
+    </div>
+
+
+  </form>
+</div>
