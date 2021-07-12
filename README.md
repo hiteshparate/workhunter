@@ -1,4 +1,10 @@
-# WorkhunterBootstrap
+# WorkHunter
+- Web application like freelancing site
+- Clients can find developers to work on their project, developers can find projects to work on
+- Developers can see the projects that are available and place bid for their projects
+- Clients can see all the bids to their project and accept according to their needs
+- After accepting developers, they work with each other and at the end they give ratings to each other
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.
 
